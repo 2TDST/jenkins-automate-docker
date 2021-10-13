@@ -31,27 +31,3 @@ security:
 unclassified:
   location:
     url: http://localhost:8080/
-
-jobs:
-  - script: >
-      organizationFolder('github-2TDST') {
-          description("Slashicorp organizational project")
-          displayName('Github/jenkins-automate-docker')
-          organizations {
-              github {
-                  repoOwner('2TDST')
-                  apiUri('https://api.github.com')
-              }
-          }
-          projectFactories {
-              workflowMultiBranchProjectFactory {
-                  // Relative location within the checkout of your Pipeline script.
-                  scriptPath('jenkins-automate-docker.Jenkinsfile')
-              }
-          }
-          orphanedItemStrategy {
-              discardOldItems {
-                  daysToKeep(1)
-                  numToKeep(2)
-              }
-          }

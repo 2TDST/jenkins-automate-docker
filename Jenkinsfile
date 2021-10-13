@@ -3,15 +3,23 @@
 pipeline {
     agent { label 'master'}
     stages {
-        stage("Hello") {
+        stage("backend") {
             steps {
-                echo "Hello from pipeline"
+            git branch: 'main',
+                url: 'ssh://git@github.com:2TDST/dimdim-backend.git'
+
+            sh "cd dimdim-backend"
+            sh "docker-compose up -d"
+            sh "cd .."
             }
         }
-        stage("Goodbye") {
+        stage("frontend") {
             steps {
-                echo "Goodbye from pipeline"
-            }
+            git branch: 'main',
+                url: 'ssh://git@github.com:2TDST/dimdim-frontend.git'
+
+            sh "cd dimdim-frontend"
+            sh "docker-compose up -d"
         }
     }
 }
