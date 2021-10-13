@@ -2,24 +2,21 @@
 pipeline {
     agent { label 'master'}
     stages {
-        stage("Backend") {
+        stage("Inline") {
             steps {
-                sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                sh 'sudo sh get-docker.sh'
-                sh 'pwd'
+                sh 'curl -fsSL https://get.docker.com -o get-docker.sh & sh get-docker.sh'
+                sh 'sleep 10'
                 sh 'cd applications/dimdim-backend'
-                sh 'docker-compose up -d'
-                sh 'cd ..'
-                sh 'echo "Fim do Stage Backend"'
-            }
-        }
-        stage("Frontend") {
-            steps {
                 sh 'pwd'
-                sh 'cd applications/dimdim-frontend'
+                sh 'ls -lha'
                 sh 'docker-compose up -d'
-                sh 'cd ..'
-                sh 'echo "Fim do Stage Frontend"'
+                sh 'sleep 10'
+                sh 'cd ../dimdim-frontend'
+                sh 'pwd'
+                sh 'ls -lha'
+                sh 'docker-compose up -d'
+                sh 'docker ps'
+                sh 'sleep 10'
             }
         }
     }
