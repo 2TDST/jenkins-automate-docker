@@ -20,37 +20,46 @@ jenkins:
   numExecutors: 1
   remotingSecurity:
     enabled: true
+
 security:
   queueItemAuthenticator:
     authenticators:
     - global:
         strategy: triggeringUsersAuthorizationStrategy
+
 unclassified:
   location:
     url: http://localhost:8080/
 
-jobs:
-  - script: >
-      job('seed_job') {
-        label('master')
-        multiscm {
-            git {
-                remote {
-                    url('https://github.com/2TDST/jenkins-automate-docker.git')
-                }
-                extensions {
-                  relativeTargetDirectory('jenkins-automate-docker')
-                }
-            }
-        }
-        steps {
-            dsl {
-                lookupStrategy('SEED_JOB')
-                external('jenkins-automate-docker/Jenkinsfile.groovy')
-            }
-        }
-        triggers {
-            scm('* * * * *')
-        }
-      }
+removeStrategy:
+  items: "none"
+  rbac: "sync"
 
+items:
+  - kind: "pipeline"
+    name: "jenkins-automate-docker"
+    displayName: "Project Beta Pipeline job"
+    description: "This is Project Beta's Pipeline job!"
+    definition:
+      cpsScmFlowDefinition:
+        scriptPath: "Jenkinsfile"
+        scm:
+          gitSCM:
+            gitTool: "git"
+            userRemoteConfigs:
+              - userRemoteConfig:
+                  name: "main"
+                  # credentialsId: "credentials-id"
+                  url: "git@github.com:2TDST/jenkins-automate-docker.git"
+            extensions:
+              - checkoutOption:
+                  timeout: 2
+              - cloneOption:
+                  reference: "/workspace/git"
+                  noTags: false
+                  honorRefspec: false
+                  shallow: true
+                  timeout: 5
+            branches:
+              - branchSpec:
+                  name: "*/main"

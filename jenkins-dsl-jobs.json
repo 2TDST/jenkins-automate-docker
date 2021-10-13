@@ -7,10 +7,10 @@
         "cronTrigger": "2 H * * *",
         "remoteBranchName": "master",
         "git": {
-          "repositoryId": "myPipelineJobId",
+          "repositoryId": "jenkins-automate-docker",
           "repositoryUrl": "https://github.com/2TDST/jenkins-automate-docker.git",
           "repositoryTrigger": "* * * * *",
-          "credentialsId": "myGitCredentialsId"
+          "credentialsId": "dihogoteixeira"
         },
         "logRotator": {
           "daysToKeep": 10,
