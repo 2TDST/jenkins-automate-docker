@@ -1,0 +1,23 @@
+{
+    "pipelineJobs": [
+      {
+        "jobName": "myPipelineJob",
+        "jobDescription": "This is a test job",
+        "pipelineScriptPath": "Jenkinsfile.groovy",
+        "cronTrigger": "2 H * * *",
+        "remoteTriggerUuid": "618f1dae-9475-41c3-9d17-381ff3c8684e",
+        "remoteBranchName": "master",
+        "git": {
+          "repositoryId": "myPipelineJobId",
+          "repositoryUrl": "https://github.com/2TDST/jenkins-automate-docker.git",
+          "repositoryTrigger": "* * * * *",
+          "credentialsId": "myGitCredentialsId"
+        },
+        "logRotator": {
+          "daysToKeep": 10,
+          "numToKeep": 5
+        } 
+      }
+    ]
+  }
+  

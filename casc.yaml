@@ -1,0 +1,64 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: ${JENKINS_ADMIN_ID}
+         password: ${JENKINS_ADMIN_PASSWORD}
+
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Job/Build:dev"
+        - "Job/Cancel:dev"
+        - "Job/Workspace:dev"
+        - "Job/Read:dev"
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+        - "Run/Replay:dev"
+        - "Run/Update:dev"
+  numExecutors: 1
+  remotingSecurity:
+    enabled: true
+security:
+  queueItemAuthenticator:
+    authenticators:
+    - global:
+        strategy: triggeringUsersAuthorizationStrategy
+unclassified:
+  location:
+    url: http://localhost:8080/
+
+jobs:
+  - script: >
+      job('seed_job') {
+        label('master')
+        multiscm {
+            git {
+                remote {
+                    url('https://github.com/Ragin-LundF/jenkins-jobdsl-remote.git')
+                }
+                extensions {
+                  relativeTargetDirectory('jobdslscript')
+                }
+            }
+            git {
+                remote {
+                    url('https://github.com/2TDST/jenkins-automate-docker.git')
+                }
+                extensions {
+                  relativeTargetDirectory('jobdefinition')
+                }
+            }
+        }
+        steps {
+            dsl {
+                lookupStrategy('SEED_JOB')
+                external('jobdslscript/JenkinsJobDslRemote.groovy')
+            }
+        }
+        triggers {
+            scm('* * * * *')
+        }
+      }
+
