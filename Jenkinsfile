@@ -1,23 +1,27 @@
-#!groovy
 
+#!groovy
 pipeline {
     agent { label 'master'}
     stages {
-        stage("backend") {
+        stage("Backend") {
             steps {
-            sh "git clone https://github.com/2TDST/dimdim-backend.git"
-            sh "cd dimdim-backend"
-            sh "docker-compose up -d"
-            sh "cd .."
-            echo "Fim do Stage backend"
+                echo "Hello from Backend pipeline"
+                git clone https://github.com/2TDST/dimdim-backend.git
+                cd dimdim-backend
+                docker-compose up -d
+                cd ..
+                echo "Fim do Stage Backend"
             }
         }
-        stage("frontend") {
+        stage("Frontend") {
             steps {
-            sh "git clone https://github.com/2TDST/dimdim-backend.git"
-            sh "cd dimdim-frontend"
-            sh "docker-compose up -d"
-            echo "Fim do Stage Frontend"
+                echo "Hello from Frontend pipeline"
+                git clone https://github.com/2TDST/dimdim-frontend.git
+                cd dimdim-frontend
+                docker-compose up -d
+                cd ..
+                echo "Fim do Stage Frontend"
+            }
         }
     }
 }
