@@ -1,6 +1,8 @@
 
 pipeline {
-    agent { label 'master'}
+    agent { 
+        docker { image 'ubuntu' }
+    }
     stages {
         stage("Inline") {
             steps {
