@@ -36,25 +36,17 @@ jobs:
         multiscm {
             git {
                 remote {
-                    url('https://github.com/Ragin-LundF/jenkins-jobdsl-remote.git')
-                }
-                extensions {
-                  relativeTargetDirectory('jobdslscript')
-                }
-            }
-            git {
-                remote {
                     url('https://github.com/2TDST/jenkins-automate-docker.git')
                 }
                 extensions {
-                  relativeTargetDirectory('jobdefinition')
+                  relativeTargetDirectory('jenkins-automate-docker')
                 }
             }
         }
         steps {
             dsl {
                 lookupStrategy('SEED_JOB')
-                external('jobdslscript/JenkinsJobDslRemote.groovy')
+                external('jenkins-automate-docker/Jenkinsfile.groovy')
             }
         }
         triggers {
