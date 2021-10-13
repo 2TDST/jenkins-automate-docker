@@ -14,6 +14,7 @@ blueocean-pipeline-scm-api:latest
 cloudbees-folder:latest
 configuration-as-code:latest
 credentials-binding:latest
+docker-compose-build-step:latest
 email-ext:latest
 git:latest
 github-branch-source:latest
@@ -32,6 +33,7 @@ workflow-job:latest
 workflow-cps:latest
 workflow-aggregator:latest
 ws-cleanup:latest
+
 
 
 
