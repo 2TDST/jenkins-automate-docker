@@ -1,15 +1,18 @@
-
 pipeline {
     agent { label 'master'}
     stages {
-        stage("Inline") {
+        stage("Hello") {
             steps {
-                sh 'cd applications/dimdim-backend'
+                echo "Hello from pipeline"
                 sh 'ls -lha'
+                sh 'ls -lha applications'
                 sh 'sleep 10'
-                sh 'cd ../dimdim-frontend'
-                sh 'pwd'
-                sh 'ls -lha'
+            }
+        }
+        stage("Goodbye") {
+            steps {
+                echo "Goodbye from pipeline"
+                sh 'ls -lha applications'
                 sh 'sleep 10'
             }
         }
