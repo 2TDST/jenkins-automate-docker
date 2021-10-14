@@ -7,8 +7,6 @@ pipeline {
                 sh '''
                     ls -lha
                     cd applications/dimdim-backend
-                    mvn package
-                    java -jar target/ag-dimdim-api.jar
                     ls -lha
                     sleep 10
                 '''
@@ -38,8 +36,6 @@ pipeline {
                   sh '''
                     ls -lha
                     cd applications/dimdim-backend
-                    mvn package
-                    java -jar target/ag-dimdim-api.jar
                     ls -lha
                     sleep 10
                 '''
