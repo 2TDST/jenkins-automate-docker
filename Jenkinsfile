@@ -1,11 +1,7 @@
 pipeline {
     agent any
-    tools { 
-        maven 'Maven 3.8.3' 
-        jdk 'jdk8' 
-    }
     stages {
-        stage("Package") {
+        stage("Build") {
             steps {
                 echo "Hello from pipeline"
                 sh '''
@@ -18,11 +14,35 @@ pipeline {
                 '''
             }
         }
-        stage("Goodbye") {
+        
+        stage("Stage") {
+            script {
+                timeout(time: 10, unit: 'MINUTES') {
+                    input(id: "Deploy Gate", message: "Deploy DIMDIM-BACKEND?", ok: 'Deploy')
+                }
+            }
             steps {
                 echo "Goodbye from pipeline"
                 sh 'ls -lha applications/dimdim-backend'
                 sh 'sleep 10'
+            }
+        }
+
+        stage("Deploy") {
+            when {
+                branch 'main'
+            }
+            steps {
+
+                echo "Apply on production"
+                  sh '''
+                    ls -lha
+                    cd applications/dimdim-backend
+                    mvn package
+                    java -jar target/ag-dimdim-api.jar
+                    ls -lha
+                    sleep 10
+                '''
             }
         }
     }
