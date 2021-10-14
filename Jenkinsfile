@@ -14,14 +14,14 @@ pipeline {
                 '''
             }
         }
-        
+
         stage("Stage") {
-            script {
-                timeout(time: 10, unit: 'MINUTES') {
-                    input(id: "Deploy Gate", message: "Deploy DIMDIM-BACKEND?", ok: 'Deploy')
-                }
-            }
             steps {
+                script {
+                    timeout(time: 10, unit: 'MINUTES') {
+                        input(id: "Deploy Gate", message: "Deploy DIMDIM-BACKEND?", ok: 'Deploy')
+                    }
+                }
                 echo "Goodbye from pipeline"
                 sh 'ls -lha applications/dimdim-backend'
                 sh 'sleep 10'
