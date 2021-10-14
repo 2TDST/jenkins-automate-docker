@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:lts
+FROM jenkins/jenkins:jdk11
 
 ARG BUILD_DATE
 ARG VCS_REF
