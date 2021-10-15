@@ -8,7 +8,7 @@ docker build -t jenkins:jcasc . && docker run -dt --name jenkins --rm -p 8080:80
 
 Agora você pode ir para server_ip: 8080/login e fazer login usando as credenciais especificadas
 
-[!login](img/login.png)
+![login](img/login.png)
 
 # SLASHICORP
 
