@@ -6,7 +6,7 @@ Execute a imagem atualizada do Jenkins enquanto passa as variáveis de ambiente 
 docker build -t jenkins:jcasc . && docker run -dt --name jenkins --rm -p 8080:8080 -p 50000:50000 --env JENKINS_ADMIN_ID=admin --env JENKINS_ADMIN_PASSWORD=password jenkins:jcasc
 ```
 
-Agora você pode ir para server_ip: 8080/login e fazer login usando as credenciais especificadas
+Agora você pode ir para http://localhost:8080/login e fazer login usando as credenciais especificadas
 
 ![login](img/login.png)
 
